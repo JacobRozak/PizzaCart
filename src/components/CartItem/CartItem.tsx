@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 import { useDispatch } from "react-redux";
+import { notification } from "../../notifications/notifications";
 import {
   minusItem,
   removeItem,
   increaseAmount
 } from "../../redux/Slices/cartSlice";
-import { Store } from "react-notifications-component";
 import "./CartItem.scss";
 
 type CartItemProps = {
@@ -34,53 +34,17 @@ const CartItem: FC<CartItemProps> = ({
 
   const onClickMinus = () => {
     dispatch(minusItem(id));
-    Store.addNotification({
-      title: "Wonderful!",
-      message: `"${title}" amount decreased`,
-      type: "info",
-      insert: "top",
-      container: "top-right",
-      animationIn: ["animate__animated", "animate__fadeIn"],
-      animationOut: ["animate__animated", "animate__fadeOut"],
-      dismiss: {
-        duration: 1000,
-        onScreen: true
-      }
-    });
+    notification("info", "ohh well!", `"${title}" amount decreased`)
   };
 
   const onClickPlus = () => {
     dispatch(increaseAmount({ id }));
-    Store.addNotification({
-      title: "Wonderful!",
-      message: `"${title}" amount increased`,
-      type: "info",
-      insert: "top",
-      container: "top-right",
-      animationIn: ["animate__animated", "animate__fadeIn"],
-      animationOut: ["animate__animated", "animate__fadeOut"],
-      dismiss: {
-        duration: 1000,
-        onScreen: true
-      }
-    });
+    notification("info", "Amazing!", `"${title}" amount increased`)
   };
 
   const onClickRemove = () => {
     dispatch(removeItem(id));
-    Store.addNotification({
-      title: "Wonderful!",
-      message: `"${title}" has been removed`,
-      type: "info",
-      insert: "top",
-      container: "top-right",
-      animationIn: ["animate__animated", "animate__fadeIn"],
-      animationOut: ["animate__animated", "animate__fadeOut"],
-      dismiss: {
-        duration: 1500,
-        onScreen: true
-      }
-    });
+    notification("info", "well that was pointless!", `"${title}" has been removed`)
   };
 
   return (
@@ -91,7 +55,7 @@ const CartItem: FC<CartItemProps> = ({
           <img className="cart__img" src={imageUrl} alt={title} />
         </div>
         <div className="cart__info">
-          Size: {sizeOfPizza[size]}
+          Size: {size}
         </div>
         <div className="cart__container-btn">
           <button

@@ -11,8 +11,8 @@ import {
 import { addItemToCart, CartItem } from "../../redux/Slices/cartSlice";
 import { Multiselect, DropdownList } from "react-widgets";
 import { useNavigate } from "react-router-dom";
-import { Store } from "react-notifications-component";
 import { motion } from "framer-motion";
+import { notification } from "../../notifications/notifications";
 
 const Create: FC = () => {
   const [name, setName] = useState<string>("");
@@ -38,34 +38,10 @@ const Create: FC = () => {
       };
       dispatch(addItemToCart(item));
       dispatch(setToStart());
-      Store.addNotification({
-        title: "Wonderful!",
-        message: `"${item.title}" Added to cart`,
-        type: "success",
-        insert: "top",
-        container: "top-right",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 1500,
-          onScreen: true
-        }
-      });
+      notification("success", "Wonderful News!", `"${item.title}" Added to cart`)
       navigate(`/`);
     } else {
-      Store.addNotification({
-        title: "nah!",
-        message: `you can have maximum of ${completedSize[0].avaliableToppings} toppings with this size of pizza, maybe try going for the large one you cheap bastard`,
-        type: "warning",
-        insert: "top",
-        container: "top-right",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
-        dismiss: {
-          duration: 2000,
-          onScreen: true
-        }
-      });
+      notification("warning", "Nahhhhh!", `you can have maximum of ${completedSize[0].avaliableToppings} toppings with this size of pizza, maybe try going for the large one you cheap bastard`)
     }
   };
 

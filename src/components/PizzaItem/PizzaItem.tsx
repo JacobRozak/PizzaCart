@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Store } from "react-notifications-component";
 import { AppContext } from "../../context/context";
+import { notification } from "../../notifications/notifications"
 
 type PizzaItemProps = {
   id: string;
@@ -49,19 +50,7 @@ const PizzaItem: FC<PizzaItemProps> = ({
       description
     };
     dispatch(addItemToCart(item));
-    Store.addNotification({
-      title: "Wonderful!",
-      message: `"${title}" added into the cart`,
-      type: "success",
-      insert: "top",
-      container: "top-right",
-      animationIn: ["animate__animated", "animate__fadeIn"],
-      animationOut: ["animate__animated", "animate__fadeOut"],
-      dismiss: {
-        duration: 1500,
-        onScreen: true
-      }
-    });
+    notification("success", "Wonderful news!", `"${title}" added into the cart`)
   };
 
   return (

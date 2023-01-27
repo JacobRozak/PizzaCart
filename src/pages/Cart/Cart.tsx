@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import CartList from "../../components/CartList/CartList";
 import { clearItems } from "../../redux/Slices/cartSlice";
 import { selectCart } from "../../redux/Slices/cartSlice";
-import { Store } from "react-notifications-component";
 import { motion } from "framer-motion";
 import "./Cart.scss";
+import { notification } from "../../notifications/notifications";
 
 const Cart: FC = () => {
   const dispatch = useDispatch();
@@ -14,19 +14,7 @@ const Cart: FC = () => {
 
   const clearCart = (): void => {
     dispatch(clearItems());
-    Store.addNotification({
-      title: "Wonderful!",
-      message: "Cart has been cleared",
-      type: "default",
-      insert: "top",
-      container: "top-right",
-      animationIn: ["animate__animated", "animate__fadeIn"],
-      animationOut: ["animate__animated", "animate__fadeOut"],
-      dismiss: {
-        duration: 1500,
-        onScreen: true
-      }
-    });
+    notification("default", "ehh that was a waste of time!", "Cart has been cleared")
   };
 
   return (
@@ -57,7 +45,7 @@ const Cart: FC = () => {
         <div className="cart__empty">
           <h3>
             Here is no pizza... However, you can{" "}
-            <Link to="/">
+            <Link to="/create-pizza">
               <b className="b">order</b>
             </Link>{" "}
             one
